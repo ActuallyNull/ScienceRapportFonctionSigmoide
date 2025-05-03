@@ -29,7 +29,7 @@ def sigmoid(x, L, x0, k, b):
    return L / (1 + np.exp(-k * (x - x0))) + b 
 
 # Initial guesses for parameters 
-L_initial = max(ph_hcl) - min(ph_hcl) 
+L_initial = max(ph_hcl_full) - min(ph_hcl_full) 
 print(L_initial)
 x0_initial = 10.5  # approximate midpoint 
 k_initial = 1 
@@ -43,12 +43,12 @@ params_full, _ = curve_fit(sigmoid, naoh_added_full, ph_hcl_full, p0=p0) #change
 print(params)
 print(params_full)
 # Generate fitted data 
-naoh_fit = np.linspace(0, 15, 300) #change back to 15
-ph_fit = sigmoid(naoh_fit, *params) #change back to *params
+naoh_fit = np.linspace(0, 50, 300) #change back to 15
+ph_fit = sigmoid(naoh_fit, *params_full) #change back to *params
 
 # Plot experimental and fitted data 
 plt.figure(figsize=(8, 6)) 
-plt.scatter(naoh_added, ph_hcl, color='blue', label='Données expérimentales', marker="x") #change to not full data
+plt.scatter(naoh_added_full, ph_hcl_full, color='blue', label='Données expérimentales', marker="x") #change to not full data
 plt.plot(naoh_fit, ph_fit, color='red', label='Courbe sigmoïde approximative') 
 plt.xlabel('NaOH ajouté (mL)') 
 plt.ylabel('pH de la solution') 
